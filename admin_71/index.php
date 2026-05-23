@@ -1,8 +1,9 @@
 
 <?php
-if(empty($_SESSION["admin_id"])){
-    header("Location:../auth/login.php");
-}
+$link="";
+// if(empty($_SESSION["admin_id"])){
+//     header("Location:../auth/login.php");
+// }
 include("layouts/a_header.php");
 ?>
 
