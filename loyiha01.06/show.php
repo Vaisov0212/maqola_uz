@@ -1,3 +1,35 @@
+<?php
+require('conn.php');
+
+$id=$_GET['id'];
+
+$sql="SELECT * FROM posts WHERE id=:id";
+
+$stmt=$conn->prepare($sql);
+$stmt->execute([
+  ':id'=>$id
+]);
+
+$post=$stmt->fetch();
+
+$sql="UPDATE posts SET view=:view WHERE id=:id";
+
+$eye=$conn->prepare($sql);
+$eye->execute([
+  ":view"=>$post['view']+1,
+  ":id"=>$id
+]);
+
+
+
+
+?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -396,13 +428,13 @@
 
 <!-- HERO -->
 <div class="post-hero">
-  <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80" alt="Post rasmi"/>
+  <img src=<?="posts/".$post["img"]  ?> alt="Post rasmi"/>
   <div class="post-hero-overlay"></div>
   <div class="post-hero-content">
     <div class="container">
       <div class="post-category-pill">Tabiat</div>
       <h1 class="post-hero-title">
-        Tog'lardagi yashirin yo'llar:<br>Sayohatchi uchun qo'llanma
+       <?= $post["subject"] ?>
       </h1>
     </div>
   </div>
@@ -430,56 +462,9 @@
         <!-- CONTENT -->
         <div class="article-content">
           <p class="lead">
-            Tog' yo'llari har doim sirli va go'zal bo'lgan. Ushbu maqolada siz kam ma'lum lekin ajoyib yo'llarni topasiz — ular orqali tabiatning eng nozik tomonlarini kashf etishingiz mumkin.
-          </p>
-
-          <p>
-            O'rta Osiyoning baland tog'lari — Pomir, Tyan-Shan va Kopetdog' — nafaqat ulkan cho'qqilar bilan, balki shu cho'qqilar orasida yashiringan so'qmoq yo'llar bilan ham mashhur. Har bir yo'l o'zining tarixi, legendalari va tabiat mo'jizalari bilan farq qiladi.
-          </p>
-
-          <h2>Qaysi mavsumda borish kerak?</h2>
-
-          <p>
-            Tog'larga borishning eng yaxshi vaqti — iyun oyining oxiridan sentyabr oyining boshigacha. Bu davrda qorlar erigan, o'tloqlar yam-yashil, ariqlar to'la-to'kis oqadi. Havo harorati kunduzi +15°C dan +25°C gacha bo'ladi, kechasi esa sezilarli soviydi.
-          </p>
-
-          <blockquote>
-            "Tog' yo'lida har qadam seni yangi bir dunyo bilan tanishtiradi. Yuqoriga qarab chiqganingda, pastdagi tashvishlar tobora kichrayib boradi."
-            <cite>— Rustam Nazarov, tog' sayyohi</cite>
-          </blockquote>
-
-          <h2>Eng mashhur yashirin yo'llar</h2>
-
-          <p>
-            Quyida sizga az ma'lum, ammo mahalliy aholi orasida yaxshi tanilgan bir nechta yo'llarni taqdim etamiz:
-          </p>
-
-          <ul>
-            <li><strong>Chimyon—Kuylyuk dara yo'li</strong> — 14 km uzunlikdagi o'rmon orqali o'tadigan maroqli so'qmoq.</li>
-            <li><strong>Ugom tizmasi ziyorat yo'li</strong> — qadimiy vali mozorlariga olib boradigan tarixiy yo'l.</li>
-            <li><strong>Ko'ksoy darasi</strong> — sharshara va tog' ko'llari bilan boyitilgan 3 kunlik marshrut.</li>
-            <li><strong>Oqtosh qoʻrgʻoni atrofi</strong> — arxeologik qazilmalar yonidagi sirli cho'qqilar.</li>
-          </ul>
-
-          <h3>Nima olib borish kerak?</h3>
-
-          <p>
-            Har qanday tog' safariga tayyor bo'lish uchun asosiy uskunalar: qattiq poshna trekking botinkasi, yomg'irdan himoya qiluvchi kurtka, ikkita litrelik termos, kompas yoki GPS qurilma va birinchi yordam dorixonasi. Ovqat masalasida yengil, kaloriyali mahsulotlarga ustunlik bering — quruq mevalar, yong'oq, siqilgan bug'doy non va energetik barlar eng qulay tanlov.
-          </p>
-
-          <p>
-            Va eng muhimi — hech qachon yolg'iz bormang. Kamida uch kishilik guruh bilan chiqing, marshrutingizni uyda qoluvchilarga aniq qilib tushuntiring va qaytish vaqtini belgilab qo'ying.
-          </p>
-
-          <h2>Xavfsizlik qoidalari</h2>
-
-          <p>
-            Tog'da ob-havo bir zumda o'zgarishi mumkin. Quyosh chiqqanda ham bulut paydo bo'lib, yomg'ir yoki do'l yog'ishi mumkin. Shu sababli, prognozni doimo kuzatib boring va kechqurun soat 16:00 gacha lager joyingizda bo'lishni rejalashtiring.
-          </p>
-
-          <p>
-            Daryo va sel kanallarini kesib o'tishda ehtiyot bo'ling: tong qorning erishidan keyin suv sathi keskin ko'tarilishi mumkin. Eng xavfsiz vaqt — erta tong, quyosh tepalikka ko'tarilmasdan avval.
-          </p>
+            <?= $post["text"] ?>
+            </p>
+            <a href="index.php" class="btn btn-info" ><i class="bi bi-arrow-up-left"></i>Qaytish</a>
         </div>
 
         <!-- TAGS -->

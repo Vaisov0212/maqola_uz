@@ -333,10 +333,10 @@ $posts=$stmt->fetchAll();
           </div>
         </div>
         <div class="post-card-footer">
-          <a href="detail.html" class="btn-view"><i class="bi bi-eye"></i> Ko'rish</a>
+          <a href="show.php?id=<?= $post['id'] ?>" class="btn-view"><i class="bi bi-eye"></i> Ko'rish</a>
           <div class="d-flex gap-2">
-            <a href="form.html?id=1" class="btn-edit-sm"><i class="bi bi-pencil"></i> Tahrir</a>
-            <a href="#" class="btn-delete-sm"><i class="bi bi-trash3"></i> O'chir</a>
+            <p><i class="bi bi-eye"></i> <?= $post['view'] ?></p>
+          
           </div>
         </div>
       </div>
